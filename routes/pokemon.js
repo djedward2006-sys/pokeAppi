@@ -4,6 +4,24 @@ const router = express.Router();
 const mysql = require("../db/mysql");
 const { getDB } = require("../db/mongo");
 
+/**
+ * @swagger
+ * /api/pokemon/mysql/{name}:
+ *   get:
+ *     summary: Obtener un Pokémon desde MySQL
+ *     parameters:
+ *       - in: path
+ *         name: name
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Nombre del Pokémon
+ *     responses:
+ *       200:
+ *         description: Datos del Pokémon
+ *       404:
+ *         description: Pokémon no encontrado
+ */
 // MYSQL
 router.get("/mysql/:name", async (req, res) => {
   const { name } = req.params;
@@ -25,6 +43,24 @@ router.get("/mysql/:name", async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/pokemon/mongo/{name}:
+ *   get:
+ *     summary: Obtener un Pokémon desde MongoDB
+ *     parameters:
+ *       - in: path
+ *         name: name
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Nombre del Pokémon
+ *     responses:
+ *       200:
+ *         description: Datos del Pokémon
+ *       503:
+ *         description: Base de datos no disponible
+ */
 // MONGO
 router.get("/mongo/:name", async (req, res) => {
   const mongoDB = getDB();

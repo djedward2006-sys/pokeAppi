@@ -11,6 +11,8 @@ app.use(cors());
 app.use(express.json());
 
 // rutas API
+const { swaggerUi, specs } = require("./config/swagger");
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 app.use("/api/pokemon", require("./routes/pokemon"));
 
 // Verificación de variables (sin mostrar valores sensibles)
