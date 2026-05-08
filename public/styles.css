@@ -1,0 +1,640 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url("./imagenes/fondo.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    font-family: 'Outfit', sans-serif;
+}
+
+/* ==========================================
+   POKÉDEX — Cuerpo principal
+   ========================================== */
+.pokedex {
+  width: 380px;
+  background: linear-gradient(160deg, #e53935 0%, #c62828 40%, #b71c1c 100%);
+  border-radius: 24px 24px 24px 24px;
+  padding: 22px 22px 18px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 0 3px #8b1a1a,
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Brillo del dispositivo */
+.pokedex::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%);
+  pointer-events: none;
+  border-radius: 24px 24px 0 0;
+}
+
+/* ==========================================
+   PARTE SUPERIOR — Cámara + LEDs
+   ========================================== */
+.pokedex-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+
+/* Lente de cámara */
+.camera-lens {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(145deg, #1565c0, #0d47a1);
+  border-radius: 50%;
+  border: 4px solid #e0e0e0;
+  box-shadow:
+    0 0 0 3px #bdbdbd,
+    0 0 20px rgba(21, 101, 192, 0.5),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.camera-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle, #42a5f5 0%, #1e88e5 40%, #0d47a1 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.camera-shine {
+  position: absolute;
+  top: 10px;
+  left: 14px;
+  width: 12px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transform: rotate(-30deg);
+}
+
+/* LEDs indicadores */
+.led-row {
+  display: flex;
+  gap: 8px;
+}
+
+.led {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  position: relative;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.led-shine {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 5px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+}
+
+.led-red {
+  background: radial-gradient(circle at 40% 35%, #ff5252, #d32f2f);
+  box-shadow: 0 0 8px rgba(255, 82, 82, 0.6);
+  animation: ledPulse 2s ease-in-out infinite;
+}
+
+.led-yellow {
+  background: radial-gradient(circle at 40% 35%, #ffeb3b, #f9a825);
+  box-shadow: 0 0 8px rgba(255, 235, 59, 0.5);
+}
+
+.led-green {
+  background: radial-gradient(circle at 40% 35%, #69f0ae, #00c853);
+  box-shadow: 0 0 8px rgba(105, 240, 174, 0.5);
+}
+
+@keyframes ledPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 82, 82, 0.6); }
+  50% { box-shadow: 0 0 16px rgba(255, 82, 82, 0.9); }
+}
+
+/* ==========================================
+   PANTALLA — Marco y contenido
+   ========================================== */
+.screen-frame {
+  padding: 0 2px;
+}
+
+.screen-border {
+  background: #bdbdbd;
+  border-radius: 12px;
+  padding: 8px 8px 6px;
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.25),
+    0 2px 0 rgba(255, 255, 255, 0.08);
+}
+
+.screen-indicators {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+  padding-left: 8px;
+}
+
+.screen-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #e53935, #b71c1c);
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+.screen {
+  background: linear-gradient(180deg, #1b2838 0%, #0d1b2a 100%);
+  border-radius: 8px;
+  padding: 20px 16px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border: 2px solid #263238;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scanlines de la pantalla */
+.screen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.05) 2px,
+    rgba(0, 0, 0, 0.05) 4px
+  );
+  pointer-events: none;
+}
+
+.screen-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 16px;
+  color: #4fc3f7;
+  text-shadow:
+    0 0 10px rgba(79, 195, 247, 0.5),
+    0 0 20px rgba(79, 195, 247, 0.3);
+  letter-spacing: 3px;
+  animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { text-shadow: 0 0 10px rgba(79, 195, 247, 0.5), 0 0 20px rgba(79, 195, 247, 0.3); }
+  50% { text-shadow: 0 0 15px rgba(79, 195, 247, 0.8), 0 0 30px rgba(79, 195, 247, 0.5); }
+}
+
+.screen-bar {
+  height: 4px;
+  margin-top: 6px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #e53935, #ff8a80, #e53935);
+}
+
+/* ==========================================
+   INPUT DE BÚSQUEDA
+   ========================================== */
+.search-area {
+  width: 100%;
+}
+
+#search {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #37474f;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #e0f7fa;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#search::placeholder {
+  color: rgba(176, 190, 197, 0.6);
+}
+
+#search:focus {
+  border-color: #4fc3f7;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 12px rgba(79, 195, 247, 0.2);
+}
+
+/* Estado de búsqueda */
+.status-text {
+  font-size: 13px;
+  color: #80cbc4;
+  min-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.status-text.error {
+  color: #ff8a80;
+}
+
+.status-text.success {
+  color: #69f0ae;
+}
+
+.status-text.loading {
+  color: #4fc3f7;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0.4; }
+}
+
+/* ==========================================
+   CONTROLES INFERIORES
+   ========================================== */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 0 4px;
+}
+
+/* D-Pad */
+.dpad-area {
+  flex-shrink: 0;
+}
+
+.dpad {
+  width: 64px;
+  height: 64px;
+  position: relative;
+}
+
+.dpad::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 22px;
+  background: linear-gradient(180deg, #2e7d32, #1b5e20);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.dpad::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  height: 100%;
+  width: 22px;
+  background: linear-gradient(90deg, #2e7d32, #1b5e20);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.dpad-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 22px;
+  background: #1b5e20;
+  border-radius: 50%;
+  z-index: 2;
+  border: 2px solid #0d3310;
+}
+
+/* Botones de acción */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-db {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 25px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-db:active {
+  transform: scale(0.95);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.btn-icon {
+  font-size: 16px;
+}
+
+.btn-mysql {
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+  color: white;
+}
+
+.btn-mysql:hover {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  box-shadow: 0 4px 15px rgba(21, 101, 192, 0.5);
+}
+
+.btn-mongo {
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  color: white;
+}
+
+.btn-mongo:hover {
+  background: linear-gradient(135deg, #388e3c, #2e7d32);
+  box-shadow: 0 4px 15px rgba(46, 125, 50, 0.5);
+}
+
+/* ==========================================
+   LÍNEA DE BISAGRA + luces decorativas
+   ========================================== */
+.hinge-line {
+  height: 3px;
+  margin: 14px 0 10px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(0,0,0,0.2) 10%,
+    rgba(0,0,0,0.3) 50%,
+    rgba(0,0,0,0.2) 90%,
+    transparent 100%
+  );
+  border-radius: 2px;
+}
+
+.bottom-lights {
+  display: flex;
+  gap: 8px;
+  padding-left: 8px;
+}
+
+.bottom-light {
+  width: 32px;
+  height: 8px;
+  background: linear-gradient(180deg, #78909c, #546e7a);
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* ==========================================
+   MODAL — Tarjeta del Pokémon
+   ========================================== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+}
+
+.card {
+  position: relative;
+  background: linear-gradient(160deg, #1e3a5f 0%, #0d1b2a 100%);
+  width: 340px;
+  margin: 8% auto;
+  padding: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 0 2px rgba(79, 195, 247, 0.2);
+  animation: cardSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #b0bec5;
+  font-size: 18px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 2;
+}
+
+.close-btn:hover {
+  background: rgba(255, 82, 82, 0.3);
+  color: #ff8a80;
+}
+
+/* Header del card */
+.card-header {
+  padding: 24px 20px 12px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(79, 195, 247, 0.1) 0%, transparent 100%);
+}
+
+.pokemon-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 18px;
+  color: #4fc3f7;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(79, 195, 247, 0.4);
+}
+
+/* Imágenes */
+.card-images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 16px 20px;
+}
+
+.img-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.img-label {
+  font-size: 10px;
+  color: #78909c;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.card-images img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 8px;
+  border: 2px solid rgba(79, 195, 247, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.card-images img:hover {
+  transform: scale(1.1);
+  border-color: rgba(79, 195, 247, 0.4);
+}
+
+/* Info del Pokémon */
+.card-info {
+  padding: 12px 24px 24px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 11px;
+  color: #78909c;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+}
+
+.info-value {
+  font-size: 14px;
+  color: #e0f7fa;
+  font-weight: 600;
+}
+
+/* ==========================================
+   ANIMACIONES GLOBALES
+   ========================================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 440px) {
+  .pokedex {
+    width: 95vw;
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .camera-lens {
+    width: 52px;
+    height: 52px;
+  }
+
+  .camera-inner {
+    width: 26px;
+    height: 26px;
+  }
+
+  .screen-title {
+    font-size: 13px;
+  }
+
+  .card {
+    width: 90vw;
+    margin: 15% auto;
+  }
+
+  .card-images img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .btn-db {
+    padding: 8px 14px;
+    font-size: 11px;
+  }
+}
