@@ -13,12 +13,11 @@ app.use(express.json());
 // rutas API
 app.use("/api/pokemon", require("./routes/pokemon"));
 
-// frontend
-app.use(express.static(path.join(__dirname, "public")));
-
-// conectar MongoDB y luego iniciar servidor
-connect().then(() => {
-  app.listen(3000, () => {
-    console.log("Servidor en http://localhost:3000");
-  });
+// Iniciar servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor backend corriendo en el puerto ${PORT}`);
 });
+
+// conectar MongoDB
+connect();
