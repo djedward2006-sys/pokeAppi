@@ -1,0 +1,231 @@
+:root {
+  --primary-color: #4fc3f7;
+  --bg-color: #0d1b2a;
+  --card-bg: rgba(27, 40, 56, 0.8);
+  --text-white: #e0f7fa;
+  --text-dim: #b0bec5;
+}
+
+/* Pokemon Theme */
+.theme-pokemon {
+  --primary-color: #ffcc00;
+  --accent-color: #ff0000;
+  --hub-bg: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+}
+
+/* Naruto Theme */
+.theme-naruto {
+  --primary-color: #ff9800;
+  --accent-color: #1a237e;
+  --hub-bg: linear-gradient(135deg, #ef6c00 0%, #e65100 100%);
+}
+
+/* Dragon Ball Theme */
+.theme-dragonball {
+  --primary-color: #ffb300;
+  --accent-color: #3949ab;
+  --hub-bg: linear-gradient(135deg, #fb8c00 0%, #ee6002 100%);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: 'Outfit', sans-serif;
+  transition: background-image 1s ease-in-out, background-color 0.5s ease;
+}
+
+/* Backgrounds handled by JS, removing static ones */
+
+.series-hub {
+  width: 90%;
+  max-width: 600px;
+  background: var(--hub-bg);
+  border-radius: 30px;
+  padding: 30px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  border: 4px solid rgba(255,255,255,0.1);
+}
+
+.hub-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+  letter-spacing: 2px;
+}
+
+.series-selector {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.series-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.series-btn:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.3);
+}
+
+.series-btn.active {
+  background: white;
+  color: #333;
+}
+
+.hub-main {
+  background: rgba(0,0,0,0.3);
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+#search {
+  width: 100%;
+  padding: 15px 20px;
+  border-radius: 15px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s;
+}
+
+#search:focus {
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 0 15px var(--primary-color);
+}
+
+.status-text {
+  height: 20px;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.character-display {
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-state {
+  text-align: center;
+  color: rgba(255,255,255,0.6);
+  font-style: italic;
+}
+
+/* Character Card In Hub */
+.char-card {
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  animation: slideUp 0.5s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.char-img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px var(--primary-color));
+}
+
+.char-info {
+  width: 100%;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.label { color: var(--text-dim); text-transform: uppercase; font-size: 0.8rem; }
+.value { font-weight: bold; color: var(--text-white); }
+
+.hub-footer {
+  margin-top: 30px;
+}
+
+.swagger-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.swag-link {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.swag-link:hover {
+  color: white;
+  border-color: white;
+  background: rgba(255,255,255,0.1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Modal specific (if still used) */
+.modal { display: none; }
+
+@media (max-width: 480px) {
+  .series-hub { padding: 20px; }
+  #title { font-size: 0.9rem; }
+  .series-btn { font-size: 0.8rem; padding: 8px 15px; }
+}

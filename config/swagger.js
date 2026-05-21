@@ -11,12 +11,12 @@ const options = {
     },
     servers: [
       {
-        url: "https://pokeappi.onrender.com",
-        description: "Servidor de Producción",
+        url: process.env.APP_URL || `http://localhost:${process.env.PORT || 3000}`,
+        description: "Servidor Principal",
       },
       {
         url: "http://localhost:3000",
-        description: "Servidor Local",
+        description: "Servidor Local (Fallback)",
       },
     ],
   },
